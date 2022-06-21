@@ -56,10 +56,4 @@ public class RestaurantController {
 
     }
 
-//    public ModelAndView searchRestaurant(){
-//
-//    }
-
-
-
 }

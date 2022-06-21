@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		referer = request.getHeader("referer");
-		getServletContext().getRequestDispatcher(URLConstantAdmin.PREFIX_PAGES+URLConstantAdmin.LOGIN_JSP).forward(request, response);
+		getServletContext().getRequestDispatcher(URLConstantAdmin.LOGIN_JSP).forward(request, response);
 
 	}
 
