@@ -160,14 +160,14 @@
         <filter-name>ValidateLocation_filter</filter-name>
         <filter-class>com.narola.fooddelivery.location.ValidateLocation_filter</filter-class>
     </filter>
-    <filter-mapping>
+    <!--<filter-mapping>
         <filter-name>ValidateRestaurantFilter</filter-name>
         <servlet-name>AddRestaurantServlet</servlet-name>
     </filter-mapping>
     <filter-mapping>
         <filter-name>ValidateLocation_filter</filter-name>
         <servlet-name>AddRestaurantServlet</servlet-name>
-    </filter-mapping>
+    </filter-mapping>-->
     <filter-mapping>
         <filter-name>ValidateRestaurantFilter</filter-name>
         <servlet-name>UpdateRestaurantServlet</servlet-name>

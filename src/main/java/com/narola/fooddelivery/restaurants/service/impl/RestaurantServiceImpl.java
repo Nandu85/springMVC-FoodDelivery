@@ -12,6 +12,7 @@ import com.narola.fooddelivery.utility.Constant;
 import com.narola.fooddelivery.utility.DAOFactory;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Part;
@@ -20,6 +21,7 @@ import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
 
+@Service
 public class RestaurantServiceImpl implements IRestaurantService {
 
 	@Autowired
@@ -112,7 +114,7 @@ public class RestaurantServiceImpl implements IRestaurantService {
 
 	public List<Restaurant> getRestaurants() {
 		try {
-			return restDAOMYSQL.getAllRestaurants();
+			return DAOFactory.getInstance().getRestDAO().getAllRestaurants();
 		} catch (Exception e) {
 			throw new ApplicationException(Constant.ERR_SOMETHING_WRONG, e);
 		}

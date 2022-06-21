@@ -9,7 +9,6 @@ import com.narola.fooddelivery.restaurants.dao.RestDAOMYSQL;
 import com.narola.fooddelivery.restaurants.dao.RestDAOPOSTGRESQL;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
 public class DAOFactory {
 	private static DAOFactory DAO_HELPER = null;
 	public static String MYSQL = "MYSQL";
@@ -26,6 +25,8 @@ public class DAOFactory {
 	}
 
 	public IRestDAO getRestDAO() {
+		if(restDAO==null)
+			init(MYSQL);
 		return restDAO;
 	}
 

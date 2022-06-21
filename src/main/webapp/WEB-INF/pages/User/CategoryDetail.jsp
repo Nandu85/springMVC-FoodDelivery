@@ -47,7 +47,7 @@
 							<div class="card-body">
 							<div align="center">
 								<label><h2>
-								<strong><c:out value="${rest.getRestName()}"></c:out>   </strong>
+								<strong><c:out value="${rest.getRestaurantName()}"></c:out>   </strong>
 									</h2> </label>
 							</div>
 							
@@ -66,7 +66,7 @@
 								&nbsp;&nbsp;&nbsp;
 								
 								<a type="button" class="btn btn-info"
-									href="<%=request.getContextPath() + URLConstantOfServlet.RESTDETAIL%>?RestaurantId=${rest.getRestId()}">Menu</a>
+									href="<%=request.getContextPath() + URLConstantOfServlet.RESTDETAIL%>?RestaurantId=${rest.getRestaurantId()}">Menu</a>
 								
 							</div>
 						</div>

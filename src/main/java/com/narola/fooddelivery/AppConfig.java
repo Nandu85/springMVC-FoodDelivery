@@ -17,7 +17,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @ComponentScan(basePackages = "com.narola.fooddelivery")
 @EnableWebMvc
-@Import({ServiceFactory.class, DAOFactory.class})
 public class AppConfig implements WebMvcConfigurer {
 
     @Bean

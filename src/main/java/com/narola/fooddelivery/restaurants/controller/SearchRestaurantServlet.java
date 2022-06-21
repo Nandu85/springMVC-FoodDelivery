@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Controller
+
 public class SearchRestaurantServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -28,13 +28,13 @@ public class SearchRestaurantServlet extends HttpServlet {
 		if (user != null) {
 			int usertype = user.getAdmin();
 			if (usertype == 1 || usertype == 2)
-				getServletContext().getRequestDispatcher(URLConstantAdmin.SEARCHRESTAURANT_JSP).forward(request,
+				getServletContext().getRequestDispatcher(URLConstantAdmin.PREFIX_PAGES+URLConstantAdmin.SEARCHRESTAURANT_JSP).forward(request,
 						response);
 			else if (usertype == 0)
-				getServletContext().getRequestDispatcher(URLConstantUser.SEARCHRESTAURANT_JSP).forward(request,
+				getServletContext().getRequestDispatcher(URLConstantAdmin.PREFIX_PAGES+URLConstantUser.SEARCHRESTAURANT_JSP).forward(request,
 						response);
 		} else
-			getServletContext().getRequestDispatcher(URLConstantUser.SEARCHRESTAURANT_JSP).forward(request, response);
+			getServletContext().getRequestDispatcher(URLConstantAdmin.PREFIX_PAGES+URLConstantUser.SEARCHRESTAURANT_JSP).forward(request, response);
 
 	}
 

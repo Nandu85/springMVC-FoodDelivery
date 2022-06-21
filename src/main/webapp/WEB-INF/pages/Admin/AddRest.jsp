@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@page import="com.narola.fooddelivery.utility.URLConstantAdmin"%>
 <%@page import="com.narola.fooddelivery.utility.URLConstantOfServlet"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +32,12 @@ p.error {
 }
 </style>
 					<p class="error">
-						<%=request.getAttribute("ErrMsg")%>
+						<c:if test="${not empty ErrMsg}">
+						<c:forEach items="${ErrMsg}" var="err">
+							${err.code}<br>
+						</c:forEach>
+						</c:if>
+
 					</p>
 					<%
 					}
@@ -70,7 +75,7 @@ p.error {
 							<div class="col-12 col-sm-2">AddressLine:</div>
 							<div class="col-auto">
 								<textarea class="form-control" rows="3" cols="50"
-									name="addressLine" width="60%"></textarea>
+									name="location.addressLine" width="60%"></textarea>
 							</div>
 
 						</div>
@@ -81,14 +86,14 @@ p.error {
 						<div class="row">
 							<div class="col-12 col-sm-2">Area:</div>
 							<div class="col-auto">
-								<input class="form-control" type="text" name="area">
+								<input class="form-control" type="text" name="location.area">
 							</div>
 						</div>
 						<br />
 						<div class="row">
 							<div class="col-12 col-sm-2">City:</div>
 							<div class="col-auto">
-								<input class="form-control" type="text" name="city">
+								<input class="form-control" type="text" name="location.city">
 							</div>
 
 						</div>
@@ -96,14 +101,14 @@ p.error {
 						<div class="row">
 							<div class="col-12 col-sm-2">State:</div>
 							<div class="col-auto">
-								<input class="form-control" type="text" name="state">
+								<input class="form-control" type="text" name="location.state">
 							</div>
 						</div>
 						<br />
 						<div class="row">
 							<div class="col-12 col-sm-2">Pincode:</div>
 							<div class="col-auto">
-								<input class="form-control" type="text" name="pincode">
+								<input class="form-control" type="text" name="location.pincode">
 							</div>
 						</div>
 						<br /> <br> <input class="btn btn-secondary" type="reset">

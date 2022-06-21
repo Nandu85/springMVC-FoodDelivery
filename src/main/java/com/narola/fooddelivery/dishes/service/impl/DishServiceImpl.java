@@ -13,6 +13,7 @@ import com.narola.fooddelivery.user.User;
 import com.narola.fooddelivery.utility.Constant;
 import com.narola.fooddelivery.utility.DAOFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class DishServiceImpl implements IDishService {
 
 	public void addDish(Dish dish, Part photoPart) {

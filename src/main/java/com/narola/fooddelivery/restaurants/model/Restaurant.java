@@ -7,6 +7,7 @@ import com.narola.fooddelivery.user.User;
 import com.narola.fooddelivery.user.UserDAO;
 import com.narola.fooddelivery.utility.DAOFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class Restaurant {
     private int locationId;
     private int disableFlag;
     private String email;
+
+    private MultipartFile restPic;
 
     private Location location;
     private String restphotoAsBase64;
@@ -33,6 +36,15 @@ public class Restaurant {
 
     @Autowired
     UserDAO userDAO;
+
+    public MultipartFile getRestPic() {
+        return restPic;
+    }
+
+    public void setRestPic(MultipartFile restPic) {
+        this.restPic = restPic;
+    }
+
 
     public Timestamp getTimestamp() {
         if (timestamp == null) setTimestamp(restDAOMYSQL.getJoinDate(restaurantId));
@@ -95,6 +107,16 @@ public class Restaurant {
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
     }
+
+    public int getRestId() {
+        return restaurantId;
+    }
+
+
+    public String getRestName() {
+        return restaurantName;
+    }
+
 
     public int getRating() {
         return rating;
