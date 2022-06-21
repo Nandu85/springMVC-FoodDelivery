@@ -1,0 +1,50 @@
+package com.narola.fooddelivery.restaurants.controller;
+
+import com.narola.fooddelivery.restaurants.service.IRestaurantService;
+import com.narola.fooddelivery.user.User;
+import com.narola.fooddelivery.utility.Constant;
+import com.narola.fooddelivery.utility.ServiceFactory;
+import com.narola.fooddelivery.utility.URLConstantAdmin;
+import com.narola.fooddelivery.utility.URLConstantUser;
+import org.springframework.stereotype.Controller;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+/**
+ * Servlet implementation class RestaurantDetail_servlet
+ */
+@Controller
+public class RestaurantDetailServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			IRestaurantService restaurantService = ServiceFactory.getInstance().getRestaurantService();
+			String restId = request.getParameter("RestaurantId");
+			if (restId != null)
+				request.setAttribute("Restaurant", restaurantService.getRestaurantFromId(restId));
+			User user = (User) request.getSession().getAttribute("user");
+			if (user == null || user.getAdmin() == 0)
+				getServletContext().getRequestDispatcher(URLConstantUser.RESTDETAIL_JSP).forward(request, response);
+
+			else if (user.getAdmin() == 1)
+				getServletContext().getRequestDispatcher(URLConstantAdmin.RESTDETAIL_JSP).forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+			request.setAttribute("errMsg", Constant.ERR_SOMETHING_WRONG);
+			getServletContext().getRequestDispatcher(URLConstantAdmin.RESTDETAIL_JSP).forward(request, response);
+		}
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+}
