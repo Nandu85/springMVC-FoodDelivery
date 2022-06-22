@@ -1,21 +1,25 @@
 package com.narola.fooddelivery.utility;
 
 import com.narola.fooddelivery.exception.DatabaseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
 
-@Component
+
 public class DBConnection {
 
-	
 	private static DBConnection dbConnection = null;
 
-	private Connection connection = null;
-	private String dbname = null;
-	private String url = null;
-	private String username = null;
-	private String password = null;
+	private static Connection connection = null;
+
+	private static String dbname;
+
+	private static String url;
+
+	private static String username;
+
+	private static String password;
 
 	public static DBConnection getInstance() {
 		if(dbConnection==null) {
@@ -24,12 +28,21 @@ public class DBConnection {
 			return dbConnection;
 	}
 
+	public DBConnection() {
+	}
+
+	public DBConnection(String dbname,String url,String username, String password) {
+		this.dbname = dbname;
+		this.url = url;
+		this.username = username;
+		this.password = password;
+	}
+
 	public Connection getConnection() throws DatabaseException {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			if (connection == null || connection.isClosed()) {
-				connection = DriverManager.getConnection(DBConnection.getInstance().getUrl()+DBConnection.getInstance().getDbname(),
-						DBConnection.getInstance().getUsername(),DBConnection.getInstance().getPassword());
+				connection = DriverManager.getConnection(url+dbname,username,password);
 				
 			}
 		} catch (ClassNotFoundException e) {

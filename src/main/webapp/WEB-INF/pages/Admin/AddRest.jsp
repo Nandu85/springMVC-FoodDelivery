@@ -34,7 +34,7 @@ p.error {
 					<p class="error">
 						<c:if test="${not empty ErrMsg}">
 						<c:forEach items="${ErrMsg}" var="err">
-							${err.code}<br>
+							${err}<br>
 						</c:forEach>
 						</c:if>
 

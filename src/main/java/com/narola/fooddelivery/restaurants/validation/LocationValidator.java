@@ -15,10 +15,10 @@ public class LocationValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "addressLine", "Please enter address");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "area", "Please enter area");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "city", "Please enter city");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "state", "Please enter state");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "addressLine", "location.addressline");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "area", "location.area");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "city", "location.city");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "state", "location.state");
 //        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"pincode","Please enter pincode");
     }
 }

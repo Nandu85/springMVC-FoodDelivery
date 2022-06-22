@@ -31,18 +31,4 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
         registration.setMultipartConfig(new MultipartConfigElement("E:/tmp"));
     }
 
-    @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
-        servletContext.setInitParameter("DB-IN-USE","MYSQL");
-        servletContext.setInitParameter("MYSQL_dbname","foodorderingsystem");
-        servletContext.setInitParameter("MYSQL_dburl","jdbc:mysql://localhost:3306/");
-        servletContext.setInitParameter("MYSQL_username","root");
-        servletContext.setInitParameter("MYSQL_password","123456");
-
-        DBConnection.getInstance().setUrl("jdbc:mysql://localhost:3306/");
-        DBConnection.getInstance().setDbname("foodorderingsystem");
-        DBConnection.getInstance().setUsername("root");
-        DBConnection.getInstance().setPassword("123456");
-        super.onStartup(servletContext);
-    }
 }

@@ -22,8 +22,8 @@ public class RestaurantRequestValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         RestaurantRequest request = (RestaurantRequest) target;
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "restaurantName", "Please enter valid Restaurant Name");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "Please enter valid email");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "restaurantName", "restaurant.name");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "restaurant.email");
         errors.pushNestedPath("location");
         Location location = request.getLocation();
         ValidationUtils.invokeValidator(locationValidator, request.getLocation(), errors);

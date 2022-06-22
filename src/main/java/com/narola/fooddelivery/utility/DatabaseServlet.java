@@ -6,7 +6,6 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-@Controller
 public class DatabaseServlet extends HttpServlet {
 
 	public void init(ServletConfig config) throws ServletException {
