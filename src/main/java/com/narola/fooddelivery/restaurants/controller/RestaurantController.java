@@ -147,8 +147,19 @@ public class RestaurantController {
 
         ModelAndView modelAndView = new ModelAndView("redirect:SearchRestaurant");
         return modelAndView;
+    }
 
+    @GetMapping("/RestaurantDetail")
+    public ModelAndView getRestaurantMenu(HttpSession session,@RequestParam(name = "RestaurantId") String id) {
+        User user = (User) session.getAttribute("user");
+        ModelAndView modelAndView;
+        if(user!=null && (user.getAdmin()== Constant.ADMIN_SUPERADMIN || user.getAdmin()==Constant.ADMIN_ADMIN))
+            modelAndView = new ModelAndView("Admin/RestDetail");
+        else
+            modelAndView = new ModelAndView("User/RestDetail");
 
+        modelAndView.addObject("Restaurant",restaurantService.getRestaurantFromId(id));
+        return modelAndView;
     }
 
 }

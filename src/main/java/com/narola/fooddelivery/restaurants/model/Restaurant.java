@@ -64,7 +64,7 @@ public class Restaurant {
     }
 
     public List<String> getCategories() {
-        if (categoriesList == null) return (ArrayList<String>) DAOFactory.getInstance().getRestDAO().getRestaurantCategories(restaurantId);
+        if (categoriesList == null) return DAOFactory.getInstance().getRestDAO().getRestaurantCategories(restaurantId);
         return categoriesList;
     }
 

@@ -120,20 +120,20 @@
             <file-size-threshold>5242880</file-size-threshold>
         </multipart-config>
     </servlet>-->
-    <servlet>
+    <!--<servlet>
         <description></description>
         <display-name>RestaurantDetailServlet</display-name>
         <servlet-name>RestaurantDetailServlet</servlet-name>
         <servlet-class>com.narola.fooddelivery.restaurants.controller.RestaurantDetailServlet</servlet-class>
     </servlet>
-    <!--<servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UpdateRestaurantServlet</servlet-name>
         <url-pattern>/UpdateRestaurant</url-pattern>
-    </servlet-mapping>-->
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RestaurantDetailServlet</servlet-name>
         <url-pattern>/RestaurantDetail</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
     <filter>
         <display-name>validateDish</display-name>
         <filter-name>ValidateDishFilter</filter-name>
