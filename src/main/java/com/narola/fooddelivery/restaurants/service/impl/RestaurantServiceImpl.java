@@ -7,6 +7,7 @@ import com.narola.fooddelivery.location.Location;
 import com.narola.fooddelivery.location.LocationDAO;
 import com.narola.fooddelivery.restaurants.dao.RestDAOMYSQL;
 import com.narola.fooddelivery.restaurants.model.Restaurant;
+import com.narola.fooddelivery.restaurants.model.RestaurantRequest;
 import com.narola.fooddelivery.restaurants.service.IRestaurantService;
 import com.narola.fooddelivery.utility.Constant;
 import com.narola.fooddelivery.utility.DAOFactory;
@@ -60,8 +61,7 @@ public class RestaurantServiceImpl implements IRestaurantService {
 		}
 	}
 
-	public void updateRestaurant(Location location, Part restImage, String restaurantName, String email,
-			String restaurantId, int disableFlag) {
+	public void updateRestaurant(Location location, MultipartFile restImage, RestaurantRequest restaurantRequest) {
 		InputStream is;
 		try {
 			LocationDAO.addLocation(location);
@@ -70,11 +70,13 @@ public class RestaurantServiceImpl implements IRestaurantService {
 			IOUtils.readFully(is, bytes);
 			String imgToString = Base64.getEncoder().encodeToString(bytes);
 
-			Restaurant restaurant = restDAOMYSQL
-					.getRestaurantFromId(Integer.parseInt(restaurantId));
+			int disableFlag = restaurantRequest.getDisable() == null ? 0 : 1;
 
-			restaurant.setRestaurantName(restaurantName);
-			restaurant.setEmail(email);
+			Restaurant restaurant = restDAOMYSQL
+					.getRestaurantFromId(Integer.parseInt(restaurantRequest.getRestaurantId()));
+
+			restaurant.setRestaurantName(restaurantRequest.getRestaurantName());
+			restaurant.setEmail(restaurantRequest.getEmail());
 			restaurant.setLocation(location);
 			restaurant.setLocationId(LocationDAO.getLocationId(location));
 			if (!imgToString.isEmpty())

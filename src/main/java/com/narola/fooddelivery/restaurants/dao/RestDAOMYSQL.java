@@ -5,12 +5,13 @@ import com.narola.fooddelivery.location.LocationDAO;
 import com.narola.fooddelivery.restaurants.model.Restaurant;
 import com.narola.fooddelivery.utility.DBConnection;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Repository
 public class RestDAOMYSQL implements IRestDAO {
 
 	public Restaurant addRestaurant(Restaurant restaurant) throws DatabaseException {

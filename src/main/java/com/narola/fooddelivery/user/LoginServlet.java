@@ -1,6 +1,8 @@
 package com.narola.fooddelivery.user;
 
+import com.narola.fooddelivery.cart.Cart;
 import com.narola.fooddelivery.cart.CartDAO;
+import com.narola.fooddelivery.utility.DAOFactory;
 import com.narola.fooddelivery.utility.URLConstantAdmin;
 import com.narola.fooddelivery.utility.URLConstantUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,7 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	UserDAO userDAO;
+
 
 	static String referer = null;
 
@@ -36,22 +37,24 @@ public class LoginServlet extends HttpServlet {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			if (username != null && password != null) {
-				User user = userDAO.findUser(username, password);
+				User user = UserDAO.findUser(username, password);
 
 				HttpSession session = request.getSession();
 				session.setAttribute("user", user);
-				session.setAttribute("Cart", CartDAO.GetCartfromUserId(user.getUserId()));
+				int id= user.getUserId();
+				Cart cart = CartDAO.GetCartfromUserId(id);
+				session.setAttribute("Cart", cart);
 
 				if (referer != null)
 					response.sendRedirect(referer);
 				else if (user.getAdmin() == 1 || user.getAdmin() == 2 || user.getAdmin() == 3)
 					response.sendRedirect(request.getContextPath() + URLConstantAdmin.DASHBOARD);
 				else
-					response.sendRedirect(request.getContextPath() + URLConstantUser.DASHBOARD);
+					response.sendRedirect(request.getContextPath() + URLConstantUser.DASHBOARD_SERVLET);
 			}
 
 			else
-				response.sendRedirect(request.getContextPath() + URLConstantUser.DASHBOARD);
+				response.sendRedirect(request.getContextPath() + URLConstantUser.DASHBOARD_SERVLET);
 
 		} catch (Exception e) {
 			request.setAttribute("ErrMsg", e.getMessage());

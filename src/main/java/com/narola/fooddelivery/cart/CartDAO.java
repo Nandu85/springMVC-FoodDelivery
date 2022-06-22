@@ -86,7 +86,7 @@ public class CartDAO {
 				cart.setCartId(resultSet.getInt("cartId"));
 				cart.setRestaurant(DAOFactory.getInstance().getRestDAO().getRestaurantFromId(resultSet.getInt("RestaurantId")));
 				cart.setTotal(resultSet.getInt("TotalAmount"));
-				cart.setUser(userDAO.findByUserId(resultSet.getInt("UserId")));
+				cart.setUser(UserDAO.findByUserId(resultSet.getInt("UserId")));
 
 			}
 		} catch (SQLException e) {

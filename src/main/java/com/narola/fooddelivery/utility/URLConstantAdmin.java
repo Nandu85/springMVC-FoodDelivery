@@ -7,6 +7,9 @@ public class URLConstantAdmin {
 
 	public static String PREFIX_PAGES = "/WEB-INF/pages";
 
+	public static String DASHBOARD = "/AdminHomeServlet";
+	public static String DASHBOARDJSP="/WEB-INF/pages/Admin/index.jsp";
+
 	public static String UPDATEDISH_JSP = "/WEB-INF/pages/Admin/UpdateDish.jsp";
 	public static String ADDDISH_JSP = "/WEB-INF/pages/Admin/Adddish.jsp";
 
@@ -33,7 +36,6 @@ public class URLConstantAdmin {
 
 	public static String UPDATEUSER_JSP = "/WEB-INF/pages/Admin/UpdateUser.jsp";
 
-	public static String DASHBOARD = "/WEB-INF/pages/Admin/index.jsp";
 	public static String PROFILE_JSP = "/WEB-INF/pages/Admin/Profile.jsp";
 	
 	public static String NEW_ORDER_JSP = "/WEB-INF/pages/Admin/NewOrder.jsp";

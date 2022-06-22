@@ -1,35 +1,13 @@
 <%@page import="com.narola.fooddelivery.restaurants.model.Restaurant"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="com.narola.fooddelivery.utility.URLConstantAdmin"%>
 <%@page import="com.narola.fooddelivery.utility.URLConstantOfServlet"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-
-
-<title>Update Restaurant</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- plugins:css -->
-<link rel="stylesheet"
-	href="vendors/simple-line-icons/css/simple-line-icons.css">
-<link rel="stylesheet"
-	href="vendors/flag-icon-css/css/flag-icon.min.css">
-<link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
-<!-- endinject -->
-<!-- Plugin css for this page -->
-<link rel="stylesheet"
-	href="./vendors/daterangepicker/daterangepicker.css">
-<link rel="stylesheet" href="./vendors/chartist/chartist.min.css">
-<!-- End plugin css for this page -->
-<!-- inject:css -->
-<!-- endinject -->
-<!-- Layout styles -->
-<link rel="stylesheet" href="./css/style.css">
+<%@include file="MetaTag.jsp"%>
 
 </head>
 
@@ -59,7 +37,11 @@ p.error {
 }
 </style>
 					<p class="error">
-						<%=request.getAttribute("ErrMsg")%>
+						<c:if test="${not empty ErrMsg}">
+							<c:forEach items="${ErrMsg}" var="err">
+								${err}<br>
+							</c:forEach>
+						</c:if>
 					</p>
 					<%
 					}
@@ -72,12 +54,12 @@ p.error {
 						<%
 						Restaurant restaurant = (Restaurant) request.getAttribute("Restaurant");
 						%>
-						<input type="hidden" name="RestaurantId"
+						<input type="hidden" name="restaurantId"
 							value="<%=restaurant.getRestId()%>">
 						<div class="row">
 							<div class="col-12 col-sm-2">Name:</div>
 							<div class="col-12 col-sm-5">
-								<input class="form-control" type="text" name="RestName"
+								<input class="form-control" type="text" name="restaurantName"
 									value="<%=restaurant.getRestName()%>">
 							</div>
 						</div>
@@ -97,7 +79,7 @@ p.error {
 								<img class="img-thumbnail"
 									src="data:image/png;base64,<%=restaurant.getRestphotoAsBase64()%>"
 									alt="No image found" style="width: 300px;"><br> <input
-									type="file" name="RestPic" />
+									type="file" name="restPic" />
 							</div>
 						</div>
 						<br />
@@ -105,7 +87,7 @@ p.error {
 							<div class="col-12 col-sm-2">AddressLine:</div>
 							<div class="col-auto">
 								<textarea class="form-control" rows="3" cols="50"
-									name="addressline" width="60%"><%=restaurant.getLocation().getAddressLine()%></textarea>
+									name="location.addressLine" width="60%"><%=restaurant.getLocation().getAddressLine()%></textarea>
 							</div>
 
 						</div>
@@ -116,7 +98,7 @@ p.error {
 						<div class="row">
 							<div class="col-12 col-sm-2">Area:</div>
 							<div class="col-auto">
-								<input class="form-control" type="text" name="area"
+								<input class="form-control" type="text" name="location.area"
 									value="<%=restaurant.getLocation().getArea()%>">
 							</div>
 						</div>
@@ -124,7 +106,7 @@ p.error {
 						<div class="row">
 							<div class="col-12 col-sm-2">City:</div>
 							<div class="col-auto">
-								<input class="form-control" type="text" name="city"
+								<input class="form-control" type="text" name="location.city"
 									value="<%=restaurant.getLocation().getCity()%>">
 							</div>
 
@@ -133,7 +115,7 @@ p.error {
 						<div class="row">
 							<div class="col-12 col-sm-2">State:</div>
 							<div class="col-auto">
-								<input class="form-control" type="text" name="state"
+								<input class="form-control" type="text" name="location.state"
 									value="<%=restaurant.getLocation().getState()%>">
 							</div>
 						</div>
@@ -141,7 +123,7 @@ p.error {
 						<div class="row">
 							<div class="col-12 col-sm-2">Pincode:</div>
 							<div class="col-auto">
-								<input class="form-control" type="text" name="pincode"
+								<input class="form-control" type="text" name="location.pincode"
 									value="<%=restaurant.getLocation().getPincode()%>">
 							</div>
 						</div>
@@ -150,7 +132,7 @@ p.error {
 							<div class="col-12 col-sm-2"></div>
 							<div class="col-auto">
 
-								<input type="checkbox" name="Disable"
+								<input type="checkbox" name="disable"
 									<%=restaurant.getDisableFlag() == 0 ? "" : " checked"%>> <b><%=restaurant.getDisableFlag() == 0 ? "Check to disable Restaurant" : "Uncheck to enable restaurant"%></b>
 							</div>
 						</div>
@@ -169,23 +151,7 @@ p.error {
 	</div>
 
 
-
-	<script src="vendors/js/vendor.bundle.base.js"></script>
-	<!-- endinject -->
-	<!-- Plugin js for this page -->
-	<script src="./vendors/chart.js/Chart.min.js"></script>
-	<script src="./vendors/moment/moment.min.js"></script>
-	<script src="./vendors/daterangepicker/daterangepicker.js"></script>
-	<script src="./vendors/chartist/chartist.min.js"></script>
-	<!-- End plugin js for this page -->
-	<!-- inject:js -->
-	<script src="js/off-canvas.js"></script>
-	<script src="js/misc.js"></script>
-	<!-- endinject -->
-	<!-- Custom js for this page -->
-	<script src="./js/dashboard.js"></script>
-	<!-- End custom js for this page -->
-
+	<%@include file="Scripts.jsp"%>
 
 
 </body>

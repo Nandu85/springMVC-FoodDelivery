@@ -3,6 +3,8 @@ package com.narola.fooddelivery.restaurants.controller;
 import com.narola.fooddelivery.restaurants.model.Restaurant;
 import com.narola.fooddelivery.restaurants.model.RestaurantRequest;
 import com.narola.fooddelivery.restaurants.service.IRestaurantService;
+import com.narola.fooddelivery.user.User;
+import com.narola.fooddelivery.utility.Constant;
 import com.narola.fooddelivery.utility.URLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,9 +37,6 @@ public class RestaurantController {
 
     @Autowired
     private Validator restaurantRequestValidator;
-
-    @Autowired
-    private Validator locationValidator;
 
     @Autowired
     private MessageSource messageSource;
@@ -67,7 +67,6 @@ public class RestaurantController {
                 errors.add(msg);
             }
             modelAndView.addObject("ErrMsg", errors);
-//            messageSource.getMessage("restaurant.email",null, Locale.getDefault());
             return modelAndView;
         }
         Restaurant restaurant = new Restaurant();
@@ -82,7 +81,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/DishDetail")
-    protected ModelAndView getDishDetail(@RequestParam String id) throws ServletException, IOException {
+    public ModelAndView getDishDetail(@RequestParam String id) throws ServletException, IOException {
         if (id==null)
             throw new URLException("Id is missing");
         ModelAndView modelAndView = new ModelAndView("User/CategoryDetail");
@@ -92,8 +91,64 @@ public class RestaurantController {
     }
 
     @GetMapping("/errors")
-    protected ModelAndView getError() throws ServletException, IOException {
+    public ModelAndView getError() throws ServletException, IOException {
         throw new URLException("Invalid url");
+    }
+
+    @GetMapping("/SearchRestaurant")
+    public ModelAndView getAllRestaurants(HttpSession session, String restaurantName, String area) {
+        User user = (User) session.getAttribute("user");
+        ModelAndView modelAndView;
+        if(user!=null && (user.getAdmin()== Constant.ADMIN_SUPERADMIN || user.getAdmin()==Constant.ADMIN_ADMIN))
+            modelAndView = new ModelAndView("Admin/SearchRestaurants");
+        else
+            modelAndView = new ModelAndView("User/SearchRestaurants");
+
+        if(restaurantName !=null || area !=null)
+            modelAndView.addObject("Restaurants",restaurantService.searchRestaurants(restaurantName,area));
+        else
+            modelAndView.addObject("Restaurants",restaurantService.getRestaurants());
+        modelAndView.addObject("Areas",restaurantService.getAreas());
+        return modelAndView;
+    }
+
+    @GetMapping("/UpdateRestaurant")
+    public ModelAndView updateRestaurantDetail(@RequestParam String RestaurantId) {
+        if (RestaurantId==null)
+            throw new URLException("Id is missing in UpdateRestaurant");
+        ModelAndView modelAndView = new ModelAndView("Admin/UpdateRestaurant");
+        modelAndView.addObject("Restaurant", restaurantService.getRestaurantFromId(RestaurantId));
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/UpdateRestaurant", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ModelAndView postUpdateRestaurant(@Validated RestaurantRequest restaurantRequest, BindingResult result) {
+        if (restaurantRequest.getRestaurantId()==null || restaurantRequest.getRestaurantId().equals("0")){
+            throw new URLException("Please provide id First");
+        }
+        if (result.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("Admin/UpdateRestaurant");
+            List<String> errors = new ArrayList<>();
+            for (ObjectError err:result.getAllErrors()) {
+                String x = null;
+                if(err.getCode()=="typeMismatch")
+                    x=err.getObjectName();
+                String msg = messageSource.getMessage(err.getCode(),new Object[]{x}, Locale.getDefault());
+                errors.add(msg);
+            }
+            modelAndView.addObject("Restaurant", restaurantService.getRestaurantFromId(restaurantRequest.getRestaurantId()));
+            modelAndView.addObject("ErrMsg", errors);
+            return modelAndView;
+        }
+        Restaurant restaurant = new Restaurant();
+        restaurant.setRestaurantName(restaurantRequest.getRestaurantName());
+        restaurant.setEmail(restaurantRequest.getEmail());
+        restaurantService.updateRestaurant(restaurantRequest.getLocation(), restaurantRequest.getRestPic(), restaurantRequest);
+
+        ModelAndView modelAndView = new ModelAndView("redirect:SearchRestaurant");
+        return modelAndView;
+
+
     }
 
 }

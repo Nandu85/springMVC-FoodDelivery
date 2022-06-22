@@ -5,11 +5,30 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class RestaurantRequest {
 
+    private String restaurantId;
     private String restaurantName;
     private String email;
     private MultipartFile restPic;
 
     private Location location;
+
+    private String disable;
+
+    public String getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(String restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public String getDisable() {
+        return disable;
+    }
+
+    public void setDisable(String disable) {
+        this.disable = disable;
+    }
 
     public Location getLocation() {
         return location;

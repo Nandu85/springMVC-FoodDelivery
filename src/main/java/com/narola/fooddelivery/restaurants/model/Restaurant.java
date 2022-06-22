@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Restaurant {
     private int restaurantId;
     private String restaurantName;
@@ -20,8 +21,6 @@ public class Restaurant {
     private int locationId;
     private int disableFlag;
     private String email;
-
-    private MultipartFile restPic;
 
     private Location location;
     private String restphotoAsBase64;
@@ -31,23 +30,15 @@ public class Restaurant {
     private User user;
     private Timestamp timestamp;
 
-    @Autowired
-    RestDAOMYSQL restDAOMYSQL;
+
+//    RestDAOMYSQL restDAOMYSQL;
 
     @Autowired
     UserDAO userDAO;
 
-    public MultipartFile getRestPic() {
-        return restPic;
-    }
-
-    public void setRestPic(MultipartFile restPic) {
-        this.restPic = restPic;
-    }
-
 
     public Timestamp getTimestamp() {
-        if (timestamp == null) setTimestamp(restDAOMYSQL.getJoinDate(restaurantId));
+        if (timestamp == null) setTimestamp(DAOFactory.getInstance().getRestDAO().getJoinDate(restaurantId));
         return timestamp;
     }
 
@@ -73,7 +64,7 @@ public class Restaurant {
     }
 
     public List<String> getCategories() {
-        if (categoriesList == null) return (ArrayList<String>) restDAOMYSQL.getRestaurantCategories(restaurantId);
+        if (categoriesList == null) return (ArrayList<String>) DAOFactory.getInstance().getRestDAO().getRestaurantCategories(restaurantId);
         return categoriesList;
     }
 

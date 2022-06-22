@@ -48,9 +48,9 @@
 
 					<form
 						action="<%=request.getContextPath() + URLConstantOfServlet.SEARCHRESTAURANT%>"
-						method="POST" style="background-color: transparent;">
-						Restaurant Name: <input type="text" name="RestaurantName">
-						&nbsp;&nbsp;&nbsp; Area: <select name="Area">
+						method="get" style="background-color: transparent;">
+						Restaurant Name: <input type="text" name="restaurantName">
+						&nbsp;&nbsp;&nbsp; Area: <select name="area">
 						<option value="">Select
 							</option>
 							<%

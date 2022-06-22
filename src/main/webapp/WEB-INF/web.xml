@@ -99,7 +99,7 @@
         <servlet-name>AddRestaurantServlet</servlet-name>
         <url-pattern>/AddRestaurant</url-pattern>
     </servlet-mapping>-->
-    <servlet>
+    <!--<servlet>
         <description></description>
         <display-name>SearchRestaurantServlet</display-name>
         <servlet-name>SearchRestaurantServlet</servlet-name>
@@ -108,8 +108,8 @@
     <servlet-mapping>
         <servlet-name>SearchRestaurantServlet</servlet-name>
         <url-pattern>/SearchRestaurant</url-pattern>
-    </servlet-mapping>
-    <servlet>
+    </servlet-mapping>-->
+    <!--<servlet>
         <description></description>
         <display-name>UpdateRestaurantServlet</display-name>
         <servlet-name>UpdateRestaurantServlet</servlet-name>
@@ -119,17 +119,17 @@
             <max-request-size>20971520</max-request-size>
             <file-size-threshold>5242880</file-size-threshold>
         </multipart-config>
-    </servlet>
+    </servlet>-->
     <servlet>
         <description></description>
         <display-name>RestaurantDetailServlet</display-name>
         <servlet-name>RestaurantDetailServlet</servlet-name>
         <servlet-class>com.narola.fooddelivery.restaurants.controller.RestaurantDetailServlet</servlet-class>
     </servlet>
-    <servlet-mapping>
+    <!--<servlet-mapping>
         <servlet-name>UpdateRestaurantServlet</servlet-name>
         <url-pattern>/UpdateRestaurant</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>RestaurantDetailServlet</servlet-name>
         <url-pattern>/RestaurantDetail</url-pattern>

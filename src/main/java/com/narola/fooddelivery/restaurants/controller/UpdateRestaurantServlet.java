@@ -58,7 +58,7 @@ public class UpdateRestaurantServlet extends HttpServlet {
 			Part restImage = request.getPart("RestPic");
 
 			IRestaurantService restService = ServiceFactory.getInstance().getRestaurantService();
-			restService.updateRestaurant(location, restImage, restaurantName, email, restaurantId, disableFlag);
+//			restService.updateRestaurant(location, restImage, restaurantName, email, restaurantId, disableFlag);
 
 			if (referer != null)
 				response.sendRedirect(referer);

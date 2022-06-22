@@ -32,10 +32,10 @@
 		<div class="row">
 		
 			<form action="<%=request.getContextPath() + URLConstantOfServlet.SEARCHRESTAURANT%>"
-				method="POST" style="background-color: transparent;">
-				Restaurant Name: <input type="text" name="RestaurantName">
+				method="get" style="background-color: transparent;">
+				Restaurant Name: <input type="text" name="restaurantName">
 				&nbsp;&nbsp;&nbsp;
-				Area: <select name="Area">
+				Area: <select name="area">
 				<%
 				ArrayList<String> area = (ArrayList) request.getAttribute("Areas");
 							
