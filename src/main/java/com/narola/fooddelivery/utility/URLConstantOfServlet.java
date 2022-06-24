@@ -11,12 +11,12 @@ public class URLConstantOfServlet {
 
 	public static String SEARCHDISH_WITH_NO_FILTER = "/SearchingDish?isfilter=false";
 	public static String DELETEDISH = "/deleteDish";
-	public static String VIEWDISH = "/DishDetail";
-	public static String UPLOADDISHIMAGE = "/Uploaddishimage";
 
-	public static String ADDRESTAURANT = "/AddRestaurant";
-	public static String SEARCHRESTAURANT = "/SearchRestaurant";
-	public static String UPDATERESTAURANT = "/UpdateRestaurant";
+	public static final String VIEWDISH = "/DishDetail";
+	public static final String ADDRESTAURANT = "/AddRestaurant";
+	public static final String SEARCHRESTAURANT = "/SearchRestaurant";
+	public static final String UPDATERESTAURANT = "/UpdateRestaurant";
+	public static final String RESTDETAIL = "/RestaurantDetail";
 
 	public static String ADDCATEGORY = "/AddCategory";
 	public static String UPDATECATEGORY = "/UpdateCategory";
@@ -25,7 +25,6 @@ public class URLConstantOfServlet {
 	public static String SUBCATEGORIES = "/SubCategories";
 	public static String UPDATESUBCATEGORIES = "/UpdateSubCategory";
 
-	public static String RESTDETAIL = "/RestaurantDetail";
 
 	public static String REGISTER = "/Register";
 	public static String LOGIN = "/Login";

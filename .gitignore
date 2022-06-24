@@ -1,5 +1,7 @@
 /build/
 /target/
 /.classpath
-/.gitignore
+.gitignore
 /.project
+/.idea
+/.settings

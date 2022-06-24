@@ -1,5 +1,6 @@
 package com.narola.fooddelivery;
 
+import com.narola.fooddelivery.utility.DAOConfig;
 import com.narola.fooddelivery.utility.DBConnection;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -17,7 +18,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null ;
+        return /*new Class<?>[]{DAOConfig.class}*/null ;
     }
 
     @Override

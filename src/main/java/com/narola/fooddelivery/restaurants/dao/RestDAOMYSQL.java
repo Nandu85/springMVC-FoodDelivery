@@ -4,7 +4,7 @@ import com.narola.fooddelivery.exception.DatabaseException;
 import com.narola.fooddelivery.location.LocationDAO;
 import com.narola.fooddelivery.restaurants.model.Restaurant;
 import com.narola.fooddelivery.utility.DBConnection;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -14,8 +14,13 @@ import java.util.List;
 @Repository
 public class RestDAOMYSQL implements IRestDAO {
 
+	@Autowired
+	private DBConnection dbConnection;
+
+	private static Connection con;
+
 	public Restaurant addRestaurant(Restaurant restaurant) throws DatabaseException {
-		Connection con = DBConnection.getInstance().getConnection();
+		con = dbConnection.getConnection();
 		PreparedStatement ps = null;
 		ResultSet resultSet = null;
 		try {
@@ -50,7 +55,7 @@ public class RestDAOMYSQL implements IRestDAO {
 	 * @throws DatabaseException
 	 */
 	public List<Restaurant> searchRestaurantFromName(String restaurantName) throws DatabaseException {
-		List<Restaurant> restaurant = null;
+		List<Restaurant> restaurant;
 		Connection con = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 		ResultSet resultSet = null;
@@ -85,7 +90,7 @@ public class RestDAOMYSQL implements IRestDAO {
 	}
 
 	public List<Restaurant> searchRestaurantFromArea(String area) throws DatabaseException {
-		List<Restaurant> restaurant = null;
+		List<Restaurant> restaurant;
 		PreparedStatement ps = null;
 		ResultSet resultSet = null;
 		Connection con = DBConnection.getInstance().getConnection();
@@ -120,7 +125,7 @@ public class RestDAOMYSQL implements IRestDAO {
 	}
 
 	public List<Restaurant> getAllRestaurants() throws DatabaseException {
-		List<Restaurant> restaurant = null;
+		List<Restaurant> restaurant;
 		PreparedStatement ps = null;
 		ResultSet resultSet = null;
 		Connection con = DBConnection.getInstance().getConnection();

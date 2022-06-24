@@ -5,18 +5,17 @@ import com.narola.fooddelivery.category.SubCategoryDAO;
 import com.narola.fooddelivery.exception.ApplicationException;
 import com.narola.fooddelivery.location.Location;
 import com.narola.fooddelivery.location.LocationDAO;
+import com.narola.fooddelivery.restaurants.dao.IRestDAO;
 import com.narola.fooddelivery.restaurants.dao.RestDAOMYSQL;
 import com.narola.fooddelivery.restaurants.model.Restaurant;
 import com.narola.fooddelivery.restaurants.model.RestaurantRequest;
 import com.narola.fooddelivery.restaurants.service.IRestaurantService;
 import com.narola.fooddelivery.utility.Constant;
-import com.narola.fooddelivery.utility.DAOFactory;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
@@ -26,13 +25,12 @@ import java.util.List;
 public class RestaurantServiceImpl implements IRestaurantService {
 
 	@Autowired
-	RestDAOMYSQL restDAOMYSQL;
+	IRestDAO restDAOMYSQL;
 
 	public void addRestaurant(Location location, MultipartFile part, Restaurant restaurant) {
 		InputStream is;
 		try {
 			LocationDAO.addLocation(location);
-//			part.getInputStream();
 			is = part.getInputStream();
 			byte[] bytes = new byte[is.available()];
 			IOUtils.readFully(is, bytes);
@@ -47,7 +45,7 @@ public class RestaurantServiceImpl implements IRestaurantService {
 
 	public List<Restaurant> searchRestaurants(String restaurantName, String area) {
 		try {
-			List<Restaurant> restaurants = null;
+			List<Restaurant> restaurants;
 			if (restaurantName != null && !restaurantName.trim().isEmpty())
 				restaurants = restDAOMYSQL.searchRestaurantFromName(restaurantName);
 			else if (area != null && !area.trim().isEmpty())
@@ -116,7 +114,7 @@ public class RestaurantServiceImpl implements IRestaurantService {
 
 	public List<Restaurant> getRestaurants() {
 		try {
-			return DAOFactory.getInstance().getRestDAO().getAllRestaurants();
+			return restDAOMYSQL.getAllRestaurants();
 		} catch (Exception e) {
 			throw new ApplicationException(Constant.ERR_SOMETHING_WRONG, e);
 		}

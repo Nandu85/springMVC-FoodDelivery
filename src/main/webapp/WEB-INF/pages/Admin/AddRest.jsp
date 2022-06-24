@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <%@page import="com.narola.fooddelivery.utility.URLConstantAdmin"%>
 <%@page import="com.narola.fooddelivery.utility.URLConstantOfServlet"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -19,7 +18,7 @@
 			<div class="main-panel">
 				<div class="content-wrapper">
 					<h2>
-						<strong>Add Your Restaurant </strong>
+						<strong>${title}</strong>
 					</h2>
 					<br />
 					<%
