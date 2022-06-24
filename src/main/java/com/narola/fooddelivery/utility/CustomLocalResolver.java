@@ -8,12 +8,17 @@ import java.util.Locale;
 
 public class CustomLocalResolver implements LocaleResolver {
 
+    private static String lang;
+
     @Override
     public Locale resolveLocale(HttpServletRequest request) {
-        if (request.getParameter("lang") == null) {
-            return Locale.getDefault();
+        if (request.getParameter("lang") != null) {
+//            return Locale.getDefault();
+            lang = request.getParameter("lang");
         }
-        return new Locale(request.getParameter("lang"));
+        else if (lang == null)
+            lang = "en";
+            return new Locale(lang);
     }
 
     @Override

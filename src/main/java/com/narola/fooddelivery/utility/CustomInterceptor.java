@@ -17,6 +17,11 @@ public class CustomInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        if (!response.isCommitted()) {
+            response.setLocale(request.getLocale());
+            response.setCharacterEncoding("UTF-8");
+        }
+
         System.out.println("postHandle...");
     }
 

@@ -57,13 +57,14 @@ public class RestaurantController {
     }
 
     @PostMapping(value = URLConstantOfServlet.ADDRESTAURANT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = "text/html;charset=UTF-8")
-    public ModelAndView postAddRestaurant(@Validated RestaurantRequest restaurantRequest, BindingResult result) {
+    public ModelAndView postAddRestaurant(@Validated RestaurantRequest restaurantRequest, BindingResult result,Locale locale) {
         if (result.hasErrors()) {
             ModelAndView modelAndView = new ModelAndView("Admin/AddRest");
             List<String> errors = new ArrayList<>();
             for (ObjectError err : result.getAllErrors()) {
-                errors.add(messageSource.getMessage(err.getCode(), err.getArguments(), new Locale("gj")));
+                errors.add(messageSource.getMessage(err.getCode(), null, locale));
             }
+            modelAndView.addObject("title", messageSource.getMessage("res.form.title", null, locale));
             modelAndView.addObject("ErrMsg", errors);
             return modelAndView;
         }
