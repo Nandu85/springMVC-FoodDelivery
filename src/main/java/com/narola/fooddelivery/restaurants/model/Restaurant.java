@@ -15,15 +15,15 @@ import java.util.List;
 
 
 public class Restaurant {
-    private int restaurantId;
-    private String restaurantName;
+    private int restaurantId;//
+    private String restaurantName;//
     private int rating;
     private int locationId;
-    private int disableFlag;
-    private String email;
+    private int disableFlag;//
+    private String email;//
 
     private Location location;
-    private String restphotoAsBase64;
+    private String restphotoAsBase64;//
     private ArrayList<Dish> restaurantMenu = null;
     private ArrayList<String> categoriesList = null;
     private int restaurantUserId;

@@ -1,6 +1,7 @@
 package com.narola.fooddelivery.restaurants.controller;
 
 import com.narola.fooddelivery.restaurants.model.Restaurant;
+import com.narola.fooddelivery.restaurants.model.RestaurantEntity;
 import com.narola.fooddelivery.restaurants.model.RestaurantRequest;
 import com.narola.fooddelivery.restaurants.service.IRestaurantService;
 import com.narola.fooddelivery.user.User;
@@ -23,16 +24,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Controller
 public class RestaurantController {
+
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
     @Autowired
     private IRestaurantService restaurantService;
@@ -49,7 +54,7 @@ public class RestaurantController {
     }
 
 
-    @GetMapping(value = URLConstantOfServlet.ADDRESTAURANT,produces = "text/html;charset=UTF-8")
+    @GetMapping(value = URLConstantOfServlet.ADDRESTAURANT, produces = "text/html;charset=UTF-8")
     public ModelAndView getAddRestaurant(Locale locale) {
         ModelAndView modelAndView = new ModelAndView("Admin/AddRest");
         modelAndView.addObject("title", messageSource.getMessage("res.form.title", null, locale));
@@ -57,15 +62,17 @@ public class RestaurantController {
     }
 
     @PostMapping(value = URLConstantOfServlet.ADDRESTAURANT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = "text/html;charset=UTF-8")
-    public ModelAndView postAddRestaurant(@Validated RestaurantRequest restaurantRequest, BindingResult result,Locale locale) {
+    public ModelAndView postAddRestaurant(@Validated RestaurantRequest restaurantRequest, BindingResult result, Locale locale) {
         if (result.hasErrors()) {
             ModelAndView modelAndView = new ModelAndView("Admin/AddRest");
-            List<String> errors = new ArrayList<>();
+            Map<String, String> errorss = new HashMap<>();
+//            List<String> errors = new ArrayList<>();
             for (ObjectError err : result.getAllErrors()) {
-                errors.add(messageSource.getMessage(err.getCode(), null, locale));
+                errorss.put(err.getCode(), messageSource.getMessage(err.getCode(), null, locale));
+//                errors.add(messageSource.getMessage(err.getCode(), null, locale));
             }
             modelAndView.addObject("title", messageSource.getMessage("res.form.title", null, locale));
-            modelAndView.addObject("ErrMsg", errors);
+            modelAndView.addObject("ErrMsg", errorss);
             return modelAndView;
         }
         Restaurant restaurant = new Restaurant();
@@ -168,6 +175,20 @@ public class RestaurantController {
     @GetMapping("/local")
     public ResponseEntity<String> localResolverTesting(Locale locale, @RequestParam String key) {
         return ResponseEntity.ok().body(locale.toString() + "=" + messageSource.getMessage(key, null, locale));
+    }
+
+    @GetMapping("persistant-api")
+    public ResponseEntity<String> persistantUnit(@RequestParam String email) {
+        EntityManager manager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = manager.getTransaction();
+        transaction.begin();
+        RestaurantEntity restaurant = new RestaurantEntity();
+        restaurant.setRestaurantName("gfrgdffghdfgh");
+        restaurant.setEmail(email);
+//        restaurant.set
+        manager.persist(restaurant);
+        transaction.commit();
+        return ResponseEntity.ok("Donnnnnnne");
     }
 
 }
